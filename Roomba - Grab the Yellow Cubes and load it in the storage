@@ -1,0 +1,18 @@
+#include <kipr/wombat.h>
+
+int main()
+{
+ printf("luglk");
+    create_connect();
+     printf("luglk");
+    enable_servos();
+     enable_servos();
+     set_servo_position(0,0);
+    set_servo_position(1,1916);   
+    create_drive_direct(250,390);
+    msleep(1000);
+     create_drive_direct(-130,150);
+    msleep(1200);
+      create_drive_direct(400,400);
+    msleep(1300);
+     set_servo_position(2,1630); 
