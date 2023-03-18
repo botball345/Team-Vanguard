@@ -1,0 +1,33 @@
+#include <kipr/wombat.h>
+
+void servo(int port,int target_position, int pause_time)
+{
+    enable_servos();
+    
+    int current_position= get_servo_position(port);    
+ 
+   while(current_position != target_position)
+    {
+        
+       if(current_position < target_position)
+       { current_position = current_position + 1;
+           }   
+           else
+           {  
+              current_position = current_position - 1;
+           }  
+        set_servo_position(port,current_position);
+        msleep(pause_time);  
+   }
+    
+}                   
+int main()
+{
+
+    create_connect();
+    enable_servos();
+    servo(1,0,2);
+    
+    return 0;
+}
+          
