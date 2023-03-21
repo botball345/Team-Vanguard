@@ -4,37 +4,58 @@
 #include <time.h>
 #include <string.h>
 #include <mainFunction.h>
-
 // Execute Code
 int main() {
-    cmpc(0);
-    cmpc(1);
-    while (analog(Ports[5]) < 2000)
+    
+    
+    
+    //wait_for_light(0);
+    //shut_down_in(115);
+    enable_servos();
+    swoopleft(1);
+    sleep(1);
+    clear(0,1); 
+    printf("%d\n",gmpc(0));
+    while (gmpc(0) <200 && gmpc(1) <200)
     {
-        motors(100,35);
-    } // Move Left To Collect Left pom poms
-    motors(100,100); // Collect Remaining
-    msleep(950);
-    motors(80,0);
-    sleep(2);
-    motors(-70,70); 
-    sleep(1.3);
-    motors(-80,80); // Turn Aound 
-    msleep(960);
-    motors(80,80);
-    sleep(1.5);
-    lineFollow(5.3);
-    cmpc(0);
-    cmpc(1);
-    while (gmpc(0) < 2250 && gmpc(1) < 2250)
-    {
-        motors(60,-60);
+     	motors(70,-70);   
     }
-    lineFollow(3);
-    motors(100,100);
-    sleep(1.3);
-    lineFollow(4.8);
-    motors(60,30);
-    sleep(1.4);
+    printf("%d\n",gmpc(0));
+    motors(80,80);
+    sleep(1);
+    ao();
+    swoopright(1); //closes the claw | captures two red pom poms using the claw to turn left
+    sleep(1);
+    clear(0,1);
+    printf("%d\n",gmpc(0));
+    while (gmpc(0) <190 && gmpc(1) <190)
+    {
+     	motors(-70,70);   
+    }
+    motors(-80,-80);
+    sleep(1.1);
+    clear(0,1);
+    while (gmpc(0) <190 && gmpc(1) <190)
+    {
+     	motors(-70,70);   
+    }
+    motors(80,80);
+    sleep(1);
+    swoopleft(1); 
+    sleep(0.5);
+    motors(-100, -100); //backs up to re-center itself
+    sleep(0.7);
+    motors(-70,70); // drives forward 
+    clear(0,1);
+    while (gmpc(0) <65 && gmpc(1) <65)
+    {
+     	motors(-70,70);   
+    }
+    printf("%d\n",gmpc(0));
+    motors(80,80);
+    sleep(1);
+    swoopright(1);
+    ao();
+    msleep(1000);
     return 0;
 }
