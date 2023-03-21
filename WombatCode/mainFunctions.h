@@ -18,6 +18,24 @@ void motors(int power_left, int power_right) {
     motor(Ports[0], power_left);
 }
 
+void clear(int port, int port2)
+{
+ 	cmpc(port);
+    cmpc(port2);
+}
+
+void swoopright(int port)
+{
+ 	enable_servos();
+    set_servo_position(port, 660);
+}
+
+void swoopleft(int port)
+{
+ 	enable_servos();
+    set_servo_position(port, 60);
+}
+
 void lineFollow(float Duration) {
     time_t endwait;
     time_t start = time(NULL);
