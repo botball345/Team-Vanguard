@@ -18,6 +18,7 @@ int main()
 	clear(0, 1); // Clears Motor Position Counter
 
     // -- Collection of First Two Green Poms -- \\ 
+	
 	printf("%d\n", gmpc(0)); // Sends out the current GMPC.
 	while (gmpc(0) < 200 && gmpc(1) < 200)
 	{
