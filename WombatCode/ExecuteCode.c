@@ -38,6 +38,7 @@ int main()
  // ╚═╝░░░░░░╚════╝░╚═╝╚═╝░░╚══╝░░░╚═╝░░░╚═════╝░╚═╝  ╚══════╝░╚════╝░░╚════╝░
     
     // -- Collection of Second Two Red Poms -- \\ 
+	
 	clear(0, 1);
 	printf("%d\n", gmpc(0));
 	while (gmpc(0) < 190 && gmpc(1) < 190)
@@ -63,6 +64,7 @@ int main()
  // ╚═╝░░░░░░╚════╝░╚═╝╚═╝░░╚══╝░░░╚═╝░░░╚═════╝░╚═╝  ╚══════╝░╚════╝░░╚════╝░
 
     // -- Collection of Third Two Green Poms -- \\ 
+	
 	sleep(0.5); // Waits from swooping the red poms.
 	motors(-100, -100);	//backs up to re-center itself
 	sleep(0.7);
@@ -75,7 +77,7 @@ int main()
 	printf("%d\n", gmpc(0));
 	motors(80, 80);
 	sleep(1);
-    ao(); // Stops all motors.
+    	ao(); // Stops all motors.
 	swoopright(1);
     
  // ██████╗░░█████╗░██╗███╗░░██╗████████╗░██████╗██╗  ██████╗░░█████╗░░█████╗░
