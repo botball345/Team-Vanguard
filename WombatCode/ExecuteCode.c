@@ -1,138 +1,142 @@
-// Includes
 #include <stdio.h>
 #include <kipr/wombat.h>
 #include <time.h>
 #include <string.h>
 #include <mainFunctions.h>
-// Execute Code
+//squish 1 = open | squish 0 = close //ANNOUNCEMENT: Make the swoop function slower! And trim the squish claws!
 int main()
 {
-    // wait_for_light(0);
-    shut_down_in(119);
-
-    // -- Setup
-
-    enable_servos(); // Turns on the Servos
-    swoopleft(1); // Make's sure the servo is in the right position.
-    sleep(1); // Waits a bit before moving on
-    clear(0, 1); // Clears Motor Position Counter
-    closeswoop(0);
-    
-    motors(20,20);
-    sleep(0.15);
-	ao();
-    sleep(1);
-    // -- Collection of First Two Green Poms (100 Points)
-    printf("%d\n", gmpc(0)); // Sends out the current GMPC.
-    while (gmpc(0) < 200 && gmpc(1) < 200)
-    {
-        motors(70, -70); // Turns left for a certain distance.
-    }
-    printf("%d\n", gmpc(0)); // Sends out the current GMPC.
-    motors(80, 80);
-    sleep(1);
-    ao(); // Stops motors completely before next action.
-    swoopright(1);
+    squish(1); //Opens the top claw
     sleep(1);
 
-
-    // -- Collection of Second Two Red Poms (200 Points)
-
-    clear(0, 1);
-    printf("%d\n", gmpc(0));
-    
-    
-    while (gmpc(0) < 160 && gmpc(1) < 160)
-    {
-        motors(-60, 60); // This time, turns right. Re-adjusts the position to look straight.
-    }
-    motors(-82, -82); // Backing up..
-    sleep(1);
-    clear(0, 1);
-    while (gmpc(0) < 190 && gmpc(1) < 190)
-    {
-        motors(-70, 70); // Once again, right.
-    }
-    motors(80, 80);
-    sleep(1);
-    swoopleft(1);
-
-
-    // -- Collection of Third Two Green Poms (300 Points)
-
-    sleep(0.5); // Waits from swooping the red poms.
-    motors(-100, -100);	//backs up to re-center itself
-    sleep(0.7);
-    motors(-70, 70);	// drives forward 
-    clear(0, 1);
-
-    while (gmpc(0) < 70 && gmpc(1) < 70)
-    {
-        motors(-70, 70); 
-    }
-
-    printf("%d\n", gmpc(0));
-    motors(80, 80);
-    sleep(1.7);
-    ao(); // Stops all motors.
-    swoopleft(1);
-	
-    motors(-35,-35);
+    movegmpc(10, 20, 20);
     sleep(0.5);
-    motors(-27,25); //swings to align with the 4 pompoms
-    sleep(0.060);
-    swoopright(1); //swings to the red pompom side to prevent any from rolling out during centering
-    closeswoop(1);
-    motors(25, 30); //slowly comes to the pompoms 
-    sleep(2.1); //NEEDS to test out timing issues here!
+
+    motors(-50, 50);
+    sleep(1.6);
+
+    motors(80,80);
+    sleep(2.350);
+
+    swoopleft(); //Opens the red side to collect red poms
+
+    motors(60,-50); //turns right facing toward two red poms
+    sleep(1.240);
+
+    motors(80,95); //slightly turns left to fully close on poms
+    sleep(1.75);
+
+    swoopright (); 
+    sleep (0.5); //closes the red side
+
+    motors (50,-54); //turns right to pump the green poms into scoring area (starting area)
+    sleep (1.90); 
+
+    motors(63,57); //moves forward
+    sleep(1.305);
+
+    ao();
+    swoopleft(); //opens the red poms side | catches green poms
+    sleep(1);
+
+    motors (-50,50); 
+    sleep (0.30);
     ao();
 
-    closeswoop(0); //pinches the green pompom on top
-    sleep(1);
-    swoopleft(1); //swoops the remaining red pompoms to the left
-    sleep(1);
-    closeswoop(1);
-
-    motors(65, 60); //drives forward
-    sleep (0.65);
-    ao(); //shuts off the motors | Preparing to pinch, swipe, and collect pompoms again
-
-    motors(25, 35); //driving forward to another set of 4 pompoms (3 green pompoms and 1 red on top)
-    sleep(0.85); 
-    motors (20,20); //slows down in front of the 4 pompoms
-    sleep (2.3);
+    motors (50,50); //lines up with black line
+    sleep (1.280);
     ao();
-    
-    closeswoop (0); // pinches the red pompom on top
-    sleep (2);
-
-    swoopright(1); //slides the green pompoms to the right side 
+    swoopright(); //catches red pompoms 
     sleep (1);
-    closeswoop (1); //opens to release the red pompom
+
+    motors(50,0); //turns left facing towards another 2 green pompoms
+    sleep (0.50);
+
+    motors (52,55); //drives slightly left to collect two green pompoms
+    sleep (1.86);
+    ao();
+
+    swoopleft(); //collects the two green pompoms 
+    sleep(1);
+
+    motors (0,25); //centers with the stack of poms
+    sleep (0.685);
+    
+    motors(47.5,43); //slightly drives right to avoid smashing into the poms
+    sleep(2.242);
+
+    ao();
+    squish(0); //collects the top green pom
+    sleep (0.250);
+    swoopright(); //swips the red poms into the red side
+    sleep(1.5); 
+    squish(1); //lets go of the green pom
+    sleep(1);
+
+    motors(36.5,24); //slightly turns right to face 3 green poms and 1 red
+    sleep(1.245);
+
+    ao();
+    sleep (0.500);
+
+    motors (40,45); //drives forward toward the set of poms
+    sleep (1.150);
+    
+    motors (25,26);
+    sleep (0.755);
+
+    ao();
+    squish(0); //collects the top red pom
+    sleep (0.250);
+    swoopleft(); //swipes the green poms into the green side
+    sleep(1.5); 
+    squish(1); //lets go of the red pom
+    sleep(1);
+
+    motors(35,35); 
+    sleep (0.51);
+    swoopright(); //closes the red pom pom side
+
+    motors (75,75); //drives forward to collect remaining pom poms leftover
+    sleep (0.6);
+
+    motors (0,80);
+    sleep (4);
+
+    motors (50,65); //leans into the left side to drop off green poms
+    sleep (1.325);
+    
+	ao();
+    squish(0);
+    sleep (1);
+    
+    motors (80,81); //going into scoring zone
+    sleep (1.750);
+    
+    squish (1);
     sleep (0.5);
-    motors (100,100); 
-    sleep (1);
-    swoopleft(1);
-    motors(45,-40); //swings to align with the black line
-    closeswoop(0);
-    
-    sleep (2.3);
+  
 
-	motors(80,57);
-    sleep(4.2);
-    motors(-80,-80);
-    sleep(3);
-    motors (100,0);
-    sleep (1.25);
-    motors (80,80);
-    sleep (0.25);
+    motors (-90,-90); //backups 
+    sleep (3);
     
-    swoopright(1);
-    sleep(1);
-    motors(-80,-80);
-    sleep(2);
+    motors (0,50); //turns right | switching to a different zone to drop off red poms
+    sleep (2.325);
     
-    // closeswoop(0); = Close
-    // closeswoop(1); = Open
+    motors (50,0);
+    sleep (0.350);
+    
+    swoopleft(); //opens up the red pom pom side to back up
+    sleep (0.250);
+    
+    motors (40,42);
+    sleep (0.800);
+    
+    motors (-80,-90);
+    sleep (2);
+    
+    
+
+
     return 0;
 }
