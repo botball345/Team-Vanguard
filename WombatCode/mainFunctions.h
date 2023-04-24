@@ -10,7 +10,7 @@ int Ports[] = {
 // Functions
 void sleep(double time)
 {
- msleep(time *1000);   
+    msleep(time *1000);   
 }
 
 void motors(int power_left, int power_right) {
@@ -20,21 +20,79 @@ void motors(int power_left, int power_right) {
 
 void clear(int port, int port2)
 {
- 	cmpc(port);
+    cmpc(port);
     cmpc(port2);
 }
 
-void swoopright(int port)
+void sservo(int port, int tpos, int pausetime)
 {
- 	enable_servos();
-    set_servo_position(port, 660);
+    int cpos = get_servo_position(port);
+    while (cpos != tpos)
+    {
+        if (cpos > tpos)
+        {
+            cpos--;
+        }
+        else
+        {
+            cpos++;
+        }
+        set_servo_position(port, cpos);
+        msleep(pausetime); 
+    }
 }
 
-void swoopleft(int port)
+int online(int sensor_port)
 {
- 	enable_servos();
-    set_servo_position(port, 60);
+ 	if (analog(sensor_port) > 3000)
+    {
+     	return 1;
+    }
+    else
+    {
+     	return 0;   
+    }
 }
+
+
+void squish(int openclose)
+{
+    enable_servos();
+    if (openclose == 0)
+    {
+        sservo(3, 650, 1);  
+    }
+    else
+    {
+        sservo(3, 1200, 1);  
+    }
+}
+
+
+void swoopleft()
+{
+    enable_servos();
+    set_servo_position(1, 735);
+}
+
+void swoopright()
+{
+    enable_servos();
+    set_servo_position(1, 1400);
+}
+
+void movegmpc(int gm, int vel1, int vel2)
+{
+    cmpc(0);
+    cmpc(1);
+    
+ 	while (gmpc(0) < gm && gmpc(1) < gm)
+    {
+        motors(vel1, vel2);
+    }
+    ao();
+}
+
 
 void lineFollow(float Duration) {
     time_t endwait;
@@ -58,7 +116,7 @@ void lineFollow(float Duration) {
             motor(Ports[1], 100);
             msleep(150);
         }
-         if (analog(Ports[5]) < 3500 && analog(Ports[4]) < 500 && analog(Ports[6]) < 1000) {
+        if (analog(Ports[5]) < 3500 && analog(Ports[4]) < 500 && analog(Ports[6]) < 1000) {
             motors(60,30);
         }
     }
