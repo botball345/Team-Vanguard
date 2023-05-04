@@ -41,3 +41,16 @@ void move_motors(int velocity_motor_one, int velocity_motor_two, int gmpcMotors)
 
   ao();
 }
+
+bool sensor_on_black(int sensor_port)
+{
+  if (analog(sensor_port) > 2000) // > 2000 = black
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+
