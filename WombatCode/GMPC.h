@@ -54,3 +54,26 @@ bool sensor_on_black(int sensor_port)
   }
 }
 
+void sleep(double time)
+{
+    msleep(time *1000);   
+}
+
+void sservo(int port, int tpos, int pausetime)
+{
+    int cpos = get_servo_position(port);
+    while (cpos != tpos)
+    {
+        if (cpos > tpos)
+        {
+            cpos--;
+        }
+        else
+        {
+            cpos++;
+        }
+        set_servo_position(port, cpos);
+        msleep(pausetime); 
+    }
+}
+
